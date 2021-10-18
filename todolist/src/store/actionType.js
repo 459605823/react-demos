@@ -1,0 +1,5 @@
+export const DELETE_ITEM = "delete_item"
+export const ADD_ITEM = "add_item"
+export const CHANGE_INPUTVALUE = "change_inputValue"
+export const INIT_LIST = "init_list"
+export const GET_TODOLIST = "GET_TODOLIST"
