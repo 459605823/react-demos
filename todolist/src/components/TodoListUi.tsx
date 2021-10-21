@@ -1,5 +1,5 @@
 // UI组件：只关心页面渲染，不关心逻辑
-import React from 'react';
+import React, {FC} from 'react';
 import 'antd/dist/antd.css';
 import {Input, Button, List} from 'antd';
 import TodoItem from './TodoItem';
@@ -13,7 +13,7 @@ type IProps = {
 };
 
 // 无状态组件
-const TodoListUi = (props: IProps) => {
+const TodoListUi: FC<IProps> = (props: IProps) => {
   const {handleInputChange, inputValue, handleBtnClick, list, handleDelete} =
     props;
   return (
