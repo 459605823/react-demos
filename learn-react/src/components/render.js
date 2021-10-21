@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 
 // 当组件的state或props发生改变时,render函数就会重新执行
 // 父组件的render函数重新执行后,子组件的render函数也会重新执行
-class Test extends Component {
+class Test extends PureComponent {
   render() {
     console.log('test render')
     return (
