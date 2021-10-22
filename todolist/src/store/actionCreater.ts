@@ -1,5 +1,6 @@
 import * as ActionTypes from './actionType';
-// import axios from 'axios'
+import axios from 'axios';
+import type {Dispatch} from 'redux';
 
 export const getInputChangeAction = (value: string) => {
   return {
@@ -23,14 +24,25 @@ export const getDelItemAction = (index: number) => {
 
 export const getInitListAction = (data: string[]) => {
   return {
-    type: ActionTypes.INIT_LIST as ActionTypes.INIT_ITEM_TYPE,
+    type: ActionTypes.INIT_LIST as ActionTypes.INIT_LIST_TYPE,
     data,
   };
 };
 
+// export const getTodoList = () => {
+//   return {
+//     type: ActionTypes.GET_TODOLIST as ActionTypes.GET_ITEM_TYPE,
+//   };
+// };
+
+// redux-thunk中间件解析action
+// 可以将异步操作分从组件生命周期函数中分离出来
 export const getTodoList = () => {
-  return {
-    type: ActionTypes.GET_TODOLIST as ActionTypes.GET_ITEM_TYPE,
+  return (dispatch: Dispatch) => {
+    axios.get('/list.json').then((res) => {
+      const action = getInitListAction(res.data);
+      dispatch(action);
+    });
   };
 };
 
@@ -38,16 +50,4 @@ export type Actions =
   | ReturnType<typeof getInputChangeAction>
   | ReturnType<typeof getAddItemAction>
   | ReturnType<typeof getDelItemAction>
-  | ReturnType<typeof getInitListAction>
-  | ReturnType<typeof getTodoList>;
-
-// redux-thunk中间件解析action
-// 可以将异步操作分从组件生命周期函数中分离出来
-// export const getTodoList = () => {
-//   return (dispatch) => {
-//     axios.get('/list.json').then((res) => {
-//       const action = getInitListAction(res.data);
-//       dispatch(action);
-//     });
-//   };
-// };
+  | ReturnType<typeof getInitListAction>;

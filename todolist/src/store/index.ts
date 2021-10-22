@@ -1,10 +1,10 @@
 import {createStore, applyMiddleware, compose} from 'redux';
-// import thunk from "redux-thunk"
+import thunk from 'redux-thunk';
 import {reducer} from './reducer';
-import createSagaMiddleware from 'redux-saga';
-import todoSage from './sagas';
+// import createSagaMiddleware from 'redux-saga';
+// import todoSage from './sagas';
 
-const sagaMiddleware = createSagaMiddleware();
+// const sagaMiddleware = createSagaMiddleware();
 
 // redux中间件:提供的是位于 action 被发起之后，到达 reducer 之前的扩展点,扩展了store.dispatch方法
 // 使他可以接收函数或promise,任何middleware都可以以自己的方式解析dispatch的任何内容，当dispatch一个函数时,会先执行该函数
@@ -18,7 +18,7 @@ const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
   : compose;
-const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
+const enhancer = composeEnhancers(applyMiddleware(thunk));
 
 // store是唯一的 单一数据源
 const store = createStore(
@@ -27,6 +27,6 @@ const store = createStore(
   // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-sagaMiddleware.run(todoSage);
+// sagaMiddleware.run(todoSage);
 
 export default store;

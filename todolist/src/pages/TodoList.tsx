@@ -2,7 +2,7 @@
 
 import React, {Component, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
+import {ThunkDispatch} from 'redux-thunk';
 import {initState} from '@/store/reducer';
 import {Actions} from '@/store/actionCreater';
 // import store from './store'
@@ -19,7 +19,7 @@ type IProps = {
   handleInputChange: (e: any) => ReturnType<typeof getInputChangeAction>;
   handleBtnClick: () => ReturnType<typeof getAddItemAction>;
   handleDelete: (index: number) => ReturnType<typeof getDelItemAction>;
-  getListData: () => ReturnType<typeof getTodoList>;
+  getListData: () => void;
   list: string[];
 };
 
@@ -96,7 +96,9 @@ const mapStateToProps = (state: initState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => {
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<initState, void, Actions>
+) => {
   return {
     handleInputChange: (e: any) =>
       dispatch(getInputChangeAction(e.target.value)),
