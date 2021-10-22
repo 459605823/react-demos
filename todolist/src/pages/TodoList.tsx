@@ -1,6 +1,6 @@
 // 容器组件：关心逻辑，不关心页面渲染
 
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
 import {initState} from '@/store/reducer';
@@ -21,6 +21,30 @@ type IProps = {
   handleDelete: (index: number) => ReturnType<typeof getDelItemAction>;
   getListData: () => ReturnType<typeof getTodoList>;
   list: string[];
+};
+
+const List: React.FC<IProps> = (props: IProps) => {
+  const {
+    inputValue,
+    handleInputChange,
+    handleBtnClick,
+    handleDelete,
+    list,
+    getListData,
+  } = props;
+  useEffect(() => {
+    console.log('get data');
+    getListData();
+  }, [getListData]);
+  return (
+    <TodoListUi
+      handleInputChange={handleInputChange}
+      inputValue={inputValue}
+      handleBtnClick={handleBtnClick}
+      list={list}
+      handleDelete={handleDelete}
+    />
+  );
 };
 
 class TodoList extends Component<IProps, initState> {
@@ -82,4 +106,4 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
+export default connect(mapStateToProps, mapDispatchToProps)(List);

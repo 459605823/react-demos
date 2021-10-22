@@ -34,10 +34,9 @@ export const reducer = (state = defalutState, action: Actions) => {
         list: state.list.concat([state.inputValue]),
       };
     case actionTypes.DELETE_ITEM:
-      return {
-        ...state,
-        list: state.list.splice(action.index, 1),
-      };
+      const newState = JSON.parse(JSON.stringify(state));
+      newState.list.splice(action.index, 1);
+      return newState;
     default:
       return state;
   }
